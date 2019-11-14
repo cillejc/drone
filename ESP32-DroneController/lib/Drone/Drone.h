@@ -6,22 +6,26 @@
 #include "WiFi.h"
 #include "AsyncUDP.h"
 #include <ButtonListener.h>
-#include <joystick.h>
+#include <FlipButtonListener.h>
+#include <Joystick.h>
+#include <FlipButton.h>
 
 using namespace std;
 
-class Drone : public ButtonListener
+class Drone : public ButtonListener, public FlipButtonListener
 {
     public:
         Drone(String ssid , String password);
         void connect();
         void sendCommand(String commmand);
         void setIp(String ip);
-        bool connected;
         String myIp;
+        bool connected = false;
         void ButtonPressed();
+        void FlipButtonPressed();
         void loop();
         Joystick *joystick;
+        FlipButton *flipButton;
     private:
         void commandResponse(String response);
         String ssid;

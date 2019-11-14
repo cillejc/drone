@@ -1,5 +1,5 @@
 #include <Arduino.h>
-#include <joystick.h>
+#include <Joystick.h>
 
 /*
 *
@@ -23,13 +23,17 @@ void Joystick::addButtonListener(ButtonListener *btnLsn)
 {
     this->buttonListener = btnLsn; 
     this->listenerIsSet = true;
-    Serial.println("done setting listener");
+    Serial.println("[INFO] Done setting listener");
+}
+
+bool Joystick::isBtnPressed()
+{
+    return this->buttonIsPressed;
 }
 
 void Joystick::loop()
 {
-    //Serial.println(digitalRead(this->pinBtn));
-    // if joystick btn is pressed and not already set as pressed
+    // If joystick btn is pressed and not already set as pressed
     if (digitalRead(this->pinBtn) == 0 && this->buttonIsPressed == false)
     {
         this->buttonIsPressed = true;
@@ -44,22 +48,19 @@ void Joystick::loop()
         this->buttonIsPressed = false;
     }
 
-
     this->x = analogRead(this->pinX);
     this->y = analogRead(this->pinY);
 
     if (x > 2048 + this->deadZone || x < 2048 - this->deadZone)
     {
-        this->x = this->x-2048;
+        this->x = this->x - 2048;
     }
     else this->x=0;
     if (y > 2048 + this->deadZone || y < 2048 - this->deadZone)
     {
-        this->y = this->y-2048;
+        this->y = this->y - 2048;
     }
-    else this->y=0;
-
-
+    else this->y = 0;
 }
 
 Position Joystick::getPosition()
@@ -72,6 +73,7 @@ int Joystick::getX()
 {
     return this->x;
 }
+
 int Joystick::getY()
 {
     return this->y;
