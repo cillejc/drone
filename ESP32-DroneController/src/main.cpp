@@ -1,12 +1,9 @@
 #include <Arduino.h>
 #include <string.h>
-#include <drone.h>
-#include <joystick.h>
+#include <Drone.h>
+#include <Joystick.h>
 #include <FlipButton.h>
 
-//String ssid = "flexlab2";
-//String password = "flexiwifi";
-// 0TQDG5FEDBX4ZQ
 String ssid = "TELLO-FE3296";
 String password = "";
 
